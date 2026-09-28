@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-concepts/optimization-techniques/hybrid-attention-models-cache" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Hybrid Attention Model Cache Management | OpenVINO GenAI</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://jacob-vincent-mink.github.io/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Hybrid Attention Model Cache Management | OpenVINO GenAI"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/openvino.genai/img/favicon.png"><link data-rh="true" rel="canonical" href="https://jacob-vincent-mink.github.io/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache"><link data-rh="true" rel="alternate" href="https://jacob-vincent-mink.github.io/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache" hreflang="en"><link data-rh="true" rel="alternate" href="https://jacob-vincent-mink.github.io/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Concepts","item":"https://jacob-vincent-mink.github.io/openvino.genai/docs/category/concepts"},{"@type":"ListItem","position":2,"name":"Optimization techniques","item":"https://jacob-vincent-mink.github.io/openvino.genai/docs/category/optimization-techniques"},{"@type":"ListItem","position":3,"name":"Hybrid Attention Model Cache Management","item":"https://jacob-vincent-mink.github.io/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache"}]}</script><link rel="stylesheet" href="/openvino.genai/assets/css/styles.fcb19f25.css">
+<script src="/openvino.genai/assets/js/runtime~main.8d307372.js" defer="defer"></script>
+<script src="/openvino.genai/assets/js/main.b7bc580a.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>document.documentElement.setAttribute("data-theme","light"),document.documentElement.setAttribute("data-theme-choice","light"),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/openvino.genai/img/intel-logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/openvino.genai/"><div class="navbar__logo"><img src="/openvino.genai/img/intel-logo.svg" alt="Intel logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/openvino.genai/img/intel-logo.svg" alt="Intel logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">OpenVINO GenAI</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/openvino.genai/docs/category/getting-started">Documentation</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/openvinotoolkit/openvino.genai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><svg aria-hidden="true" class="searchIcon_T3tP" focusable="false" viewBox="0 0 16 16"><path fill="currentColor" d="M6.02945 10.20327a4.17382 4.17382 0 1 1 4.17382-4.17382 4.15609 4.15609 0 0 1-4.17382 4.17382Zm9.69195 4.2199-4.8225-4.82338A5.88021 5.88021 0 0 0 12.058 6.02856 6.00467 6.00467 0 1 0 9.59979 10.8989l4.82338 4.82338a.89729.89729 0 0 0 1.29912 0 .89749.89749 0 0 0-.00087-1.29909Z"></path></svg><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/openvino.genai/docs/category/getting-started"><span class="categoryLinkLabel_W154">Getting Started</span></a><button aria-label="Expand sidebar category &#x27;Getting Started&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/openvino.genai/docs/category/use-cases"><span class="categoryLinkLabel_W154">Use Cases</span></a><button aria-label="Expand sidebar category &#x27;Use Cases&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/openvino.genai/docs/category/model-preparation"><span class="categoryLinkLabel_W154">Guides</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openvino.genai/docs/supported-models/"><span class="linkLabel_WmDU">Supported Models</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/openvino.genai/docs/samples/"><span class="categoryLinkLabel_W154">Samples</span></a><button aria-label="Expand sidebar category &#x27;Samples&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/openvino.genai/docs/category/concepts"><span class="categoryLinkLabel_W154">Concepts</span></a><button aria-label="Collapse sidebar category &#x27;Concepts&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/how-it-works"><span class="linkLabel_WmDU">How It Works</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/lora"><span class="linkLabel_WmDU">Low-Rank Adaptation (LoRA)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/beam-search"><span class="linkLabel_WmDU">Beam Search</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex="0" href="/openvino.genai/docs/category/optimization-techniques"><span class="categoryLinkLabel_W154">Optimization techniques</span></a><button aria-label="Collapse sidebar category &#x27;Optimization techniques&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/speculative-decoding"><span class="linkLabel_WmDU">Speculative Decoding</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/kvcache-eviction-algorithm"><span class="linkLabel_WmDU">KVCache Token Eviction Algorithm</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/sparse-attention-prefill"><span class="linkLabel_WmDU">Sparse Attention prefill algorithms</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/continuous-batching"><span class="linkLabel_WmDU">Continuous Batching</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/prefix-caching"><span class="linkLabel_WmDU">Prefix Caching</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/diffusion-caching"><span class="linkLabel_WmDU">Diffusion Caching (TaylorSeer Lite)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/hybrid-attention-models-cache"><span class="linkLabel_WmDU">Hybrid Attention Model Cache Management</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/openvino.genai/docs/concepts/optimization-techniques/visual-token-pruning"><span class="linkLabel_WmDU">Visual Token Pruning (CDPruner)</span></a></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/openvino.genai/docs/category/bindings"><span class="categoryLinkLabel_W154">Bindings</span></a><button aria-label="Expand sidebar category &#x27;Bindings&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/openvino.genai/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/openvino.genai/docs/category/concepts"><span>Concepts</span></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/openvino.genai/docs/category/optimization-techniques"><span>Optimization techniques</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Hybrid Attention Model Cache Management</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Hybrid Attention Model Cache Management</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview" translate="no">​</a></h2>
+<p>Some models combine more than one cache type in their architecture.
+The most common hybrid case is a model that uses both:</p>
+<ul>
+<li class="">regular KV-cache inputs for attention layers</li>
+<li class="">linear-attention state tables for layers such as <code>CausalConv1D</code> or <code>GatedDeltaNet</code>.</li>
+</ul>
+<p>These models do not have a single cache pool.
+They have at least two different cache pools with different growth rules:</p>
+<ul>
+<li class="">KV cache is token-driven</li>
+<li class="">linear-attention cache is either sequence-driven or interval-driven, depending on whether prefix caching is enabled</li>
+</ul>
+<p>This distinction matters when configuring <code>SchedulerConfig</code>, because the same setting can affect the two cache types differently.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cache-types-in-hybrid-models">Cache Types in Hybrid Models<a href="#cache-types-in-hybrid-models" class="hash-link" aria-label="Direct link to Cache Types in Hybrid Models" title="Direct link to Cache Types in Hybrid Models" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kv-cache">KV cache<a href="#kv-cache" class="hash-link" aria-label="Direct link to KV cache" title="Direct link to KV cache" translate="no">​</a></h3>
+<p>KV cache capacity is measured in blocks, and each block corresponds to a fixed number of tokens determined by the target device.
+Increasing KV capacity increases the number of tokens that can remain resident across active sequences.</p>
+<p>Relevant settings:</p>
+<ul>
+<li class=""><code>num_kv_blocks</code></li>
+<li class=""><code>cache_size</code></li>
+<li class=""><code>use_cache_eviction</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="linear-attention-cache-without-prefix-caching">Linear-attention cache without prefix caching<a href="#linear-attention-cache-without-prefix-caching" class="hash-link" aria-label="Direct link to Linear-attention cache without prefix caching" title="Direct link to Linear-attention cache without prefix caching" translate="no">​</a></h3>
+<p>When <code>enable_prefix_caching=false</code>, linear-attention cache behaves like a fixed-size state per live sequence.
+Each sequence needs a fixed number of linear-attention blocks, regardless of prompt length.</p>
+<p>When <code>num_linear_attention_blocks=0</code>, the runtime derives this capacity differently for two common cases:</p>
+<ul>
+<li class="">if <code>max_num_batched_tokens == std::numeric_limits&lt;size_t&gt;::max()</code>, it treats the configuration as a client-style latency scenario and starts with <code>1</code> linear-attention block</li>
+<li class="">otherwise it treats the configuration as bounded batching and derives linear-attention capacity from <code>max_num_seqs</code></li>
+</ul>
+<p>Relevant settings:</p>
+<ul>
+<li class=""><code>num_linear_attention_blocks</code></li>
+<li class=""><code>max_num_batched_tokens</code></li>
+<li class=""><code>max_num_seqs</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="linear-attention-cache-with-prefix-caching">Linear-attention cache with prefix caching<a href="#linear-attention-cache-with-prefix-caching" class="hash-link" aria-label="Direct link to Linear-attention cache with prefix caching" title="Direct link to Linear-attention cache with prefix caching" translate="no">​</a></h3>
+<p>When <code>enable_prefix_caching=true</code>, linear-attention cache switches to paged checkpointing mode.
+Instead of allocating one fixed state block per sequence, the runtime stores checkpoints every derived cache interval.
+The interval is calculated as <code>kv_block_size * cache_interval_multiplier</code> tokens.
+If <code>cache_interval_multiplier</code> is unset, the multiplier is derived adaptively from the model&#x27;s linear-attention state size so that one checkpoint costs roughly one KV block (and is never smaller than the baseline of <code>8</code>). This keeps the recurrent-state cache of large hybrid SSM models from exhausting the cache budget on long prompts. Larger values reduce linear-attention memory at the cost of coarser prefix-cache reuse.</p>
+<p>Relevant settings:</p>
+<ul>
+<li class=""><code>num_linear_attention_blocks</code></li>
+<li class=""><code>cache_interval_multiplier</code></li>
+<li class=""><code>num_kv_blocks</code></li>
+<li class=""><code>cache_size</code></li>
+</ul>
+<p>Smaller <code>cache_interval_multiplier</code> values create more checkpoints and consume more linear-attention memory.
+Larger values reduce memory usage but make checkpointing coarser.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-schedulerconfig-is-interpreted">How SchedulerConfig Is Interpreted<a href="#how-schedulerconfig-is-interpreted" class="hash-link" aria-label="Direct link to How SchedulerConfig Is Interpreted" title="Direct link to How SchedulerConfig Is Interpreted" translate="no">​</a></h2>
+<p>For hybrid-attention models, the following rules are the most useful mental model.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="constructor-defaults-matter">Constructor defaults matter<a href="#constructor-defaults-matter" class="hash-link" aria-label="Direct link to Constructor defaults matter" title="Direct link to Constructor defaults matter" translate="no">​</a></h3>
+<p>The starting <code>SchedulerConfig</code> depends on pipeline constructor type.</p>
+<p><code>LLMPipeline</code> and <code>VLMPipeline</code> constructors that utilize Continuous Batching use a latency-oriented default scheduler configuration if the user does not pass a scheduler config in <code>properties</code>. It is optimized for local non-concurrent usage.
+That default changes two fields:</p>
+<ul>
+<li class=""><code>max_num_batched_tokens = std::numeric_limits&lt;size_t&gt;::max()</code></li>
+<li class=""><code>enable_prefix_caching = true</code></li>
+</ul>
+<p><code>ContinuousBatchingPipeline</code> constructors do not assume that latency-oriented profile.
+They use the <code>SchedulerConfig</code> object that the caller provides.</p>
+<p>As a result, the same hybrid-attention model can start with different automatic linear-attention sizing depending on the constructor path unless these fields are set explicitly.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="explicit-kv-capacity">Explicit KV capacity<a href="#explicit-kv-capacity" class="hash-link" aria-label="Direct link to Explicit KV capacity" title="Direct link to Explicit KV capacity" translate="no">​</a></h3>
+<p>If <code>num_linear_attention_blocks</code> is left at <code>0</code>, the runtime derives linear-attention capacity automatically:</p>
+<ul>
+<li class="">with <code>enable_prefix_caching=false</code> and unlimited <code>max_num_batched_tokens</code>, it starts with <code>1</code> linear-attention block</li>
+<li class="">with <code>enable_prefix_caching=false</code> and bounded <code>max_num_batched_tokens</code>, it derives linear-attention blocks from <code>max_num_seqs</code></li>
+<li class="">with <code>enable_prefix_caching=true</code>, it derives linear-attention blocks as <code>ceil(num_kv_blocks / cache_interval_multiplier)</code></li>
+</ul>
+<p>This is the best option when deterministic capacity matters more than fitting into a precise byte budget.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="shared-memory-budget">Shared memory budget<a href="#shared-memory-budget" class="hash-link" aria-label="Direct link to Shared memory budget" title="Direct link to Shared memory budget" translate="no">​</a></h3>
+<p>If <code>cache_size &gt; 0</code> and <code>num_kv_blocks == 0</code>, the runtime treats <code>cache_size</code> as a shared cache budget for all registered cache types in the model.</p>
+<p>The runtime then derives:</p>
+<ul>
+<li class="">KV blocks</li>
+<li class="">linear-attention blocks</li>
+</ul>
+<p>under one combined memory limit.</p>
+<p>For non-prefix mode, the same fallback split still applies before KV blocks are computed from the remaining budget:</p>
+<ul>
+<li class="">unlimited <code>max_num_batched_tokens</code> reserves one fixed linear-attention block</li>
+<li class="">bounded <code>max_num_batched_tokens</code> reserves linear-attention capacity based on <code>max_num_seqs</code></li>
+</ul>
+<p>For hybrid models this is usually the simplest way to tell the runtime, &quot;fit all cache types into this memory budget&quot;.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fully-dynamic-mode">Fully dynamic mode<a href="#fully-dynamic-mode" class="hash-link" aria-label="Direct link to Fully dynamic mode" title="Direct link to Fully dynamic mode" translate="no">​</a></h3>
+<p>If both <code>num_kv_blocks == 0</code> and <code>cache_size == 0</code>, the cache starts with no preallocated capacity and grows on demand.
+This is the most flexible mode, but it is less deterministic than explicit sizing.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="expert-override-for-linear-attention-blocks">Expert override for linear-attention blocks<a href="#expert-override-for-linear-attention-blocks" class="hash-link" aria-label="Direct link to Expert override for linear-attention blocks" title="Direct link to Expert override for linear-attention blocks" translate="no">​</a></h3>
+<p>If <code>num_linear_attention_blocks &gt; 0</code>, it overrides the automatic linear-attention sizing logic.
+This is useful only when the required capacity is already known.</p>
+<p>If the model does not expose linear-attention cache inputs, <code>num_linear_attention_blocks</code> should not be set.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="which-configuration-fits-which-scenario">Which Configuration Fits Which Scenario<a href="#which-configuration-fits-which-scenario" class="hash-link" aria-label="Direct link to Which Configuration Fits Which Scenario" title="Direct link to Which Configuration Fits Which Scenario" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-1-stable-production-throughput-on-a-known-workload">Scenario 1: Stable production throughput on a known workload<a href="#scenario-1-stable-production-throughput-on-a-known-workload" class="hash-link" aria-label="Direct link to Scenario 1: Stable production throughput on a known workload" title="Direct link to Scenario 1: Stable production throughput on a known workload" translate="no">​</a></h3>
+<p>Use this when the number of active requests and expected context lengths are already understood.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>num_kv_blocks</code> explicitly</li>
+<li class="">keep <code>cache_size=0</code></li>
+<li class="">leave <code>num_linear_attention_blocks=0</code> unless manual control is needed</li>
+<li class="">set <code>max_num_seqs</code> to the intended concurrency if <code>enable_prefix_caching=false</code></li>
+<li class="">leave <code>cache_interval_multiplier</code> unset to use the default, or set it explicitly when a different prefix-checkpoint granularity is needed</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li class="">deterministic cache capacity</li>
+<li class="">easy to reason about admission limits</li>
+<li class="">easier benchmarking and capacity planning</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class="">requires up-front sizing work</li>
+<li class="">can over-allocate memory for bursty or variable workloads</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-2-constrained-device-memory-with-mixed-cache-types">Scenario 2: Constrained device memory with mixed cache types<a href="#scenario-2-constrained-device-memory-with-mixed-cache-types" class="hash-link" aria-label="Direct link to Scenario 2: Constrained device memory with mixed cache types" title="Direct link to Scenario 2: Constrained device memory with mixed cache types" translate="no">​</a></h3>
+<p>Use this when the main requirement is &quot;do not exceed this cache memory budget&quot;.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>cache_size</code></li>
+<li class="">keep <code>num_kv_blocks=0</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code> unless manual override is required</li>
+<li class="">choose <code>cache_interval_multiplier</code> according to the desired prefix-checkpoint granularity if <code>enable_prefix_caching=true</code></li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li class="">one budget applies to both KV and linear-attention caches</li>
+<li class="">avoids KV-only sizing on hybrid models</li>
+<li class="">good default for memory-limited deployments</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class="">less direct than explicit block counts</li>
+<li class="">derived capacities depend on model cache layout and <code>cache_interval_multiplier</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-3-high-concurrency-no-prefix-reuse">Scenario 3: High concurrency, no prefix reuse<a href="#scenario-3-high-concurrency-no-prefix-reuse" class="hash-link" aria-label="Direct link to Scenario 3: High concurrency, no prefix reuse" title="Direct link to Scenario 3: High concurrency, no prefix reuse" translate="no">​</a></h3>
+<p>Use this when requests are short-lived or reuse across requests is not expected, and sequence concurrency matters more than prefix reuse.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>enable_prefix_caching=false</code></li>
+<li class="">set <code>num_kv_blocks</code> explicitly or use <code>cache_size</code></li>
+<li class="">set <code>max_num_seqs</code> to the intended concurrent sequence count</li>
+<li class="">keep <code>num_linear_attention_blocks=0</code> unless a manual override is required</li>
+</ul>
+<p>Why this works:</p>
+<p>With prefix caching disabled, linear-attention cache is sequence-driven rather than token-driven.
+If the runtime sizes it automatically, bounded batching uses <code>max_num_seqs</code> as the target for linear-attention capacity.</p>
+<p>Pros:</p>
+<ul>
+<li class="">simple mental model</li>
+<li class="">predictable linear-attention capacity for concurrent requests</li>
+<li class="">avoids unnecessary checkpoint storage</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class="">no prefix reuse across compatible requests</li>
+<li class="">less effective for chat-style repeated-prefix workloads</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-4-prefix-heavy-chat-or-repeated-prompt-workloads">Scenario 4: Prefix-heavy chat or repeated-prompt workloads<a href="#scenario-4-prefix-heavy-chat-or-repeated-prompt-workloads" class="hash-link" aria-label="Direct link to Scenario 4: Prefix-heavy chat or repeated-prompt workloads" title="Direct link to Scenario 4: Prefix-heavy chat or repeated-prompt workloads" translate="no">​</a></h3>
+<p>Use this when prefix reuse matters and the model has linear-attention cache inputs.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>enable_prefix_caching=true</code></li>
+<li class="">either set <code>num_kv_blocks</code> explicitly or provide <code>cache_size</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code> unless manual tuning is necessary</li>
+<li class="">choose <code>cache_interval_multiplier</code> carefully</li>
+</ul>
+<p>Guidance for <code>cache_interval_multiplier</code>:</p>
+<ul>
+<li class="">smaller multiplier: more checkpoints, more linear-attention memory, finer-grained reuse</li>
+<li class="">larger multiplier: fewer checkpoints, lower linear-attention memory, coarser reuse</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li class="">aligns linear-attention capacity with token capacity</li>
+<li class="">supports prefix checkpoint reuse in hybrid models</li>
+<li class="">good fit for chat and recurring-prefix scenarios</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class=""><code>cache_interval_multiplier</code> becomes part of memory planning</li>
+<li class="">too small a multiplier can consume linear-attention memory aggressively</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-5-single-stream-or-interactive-client-inference-without-prefix-reuse">Scenario 5: Single-stream or interactive client inference without prefix reuse<a href="#scenario-5-single-stream-or-interactive-client-inference-without-prefix-reuse" class="hash-link" aria-label="Direct link to Scenario 5: Single-stream or interactive client inference without prefix reuse" title="Direct link to Scenario 5: Single-stream or interactive client inference without prefix reuse" translate="no">​</a></h3>
+<p>Use this when the pipeline is effectively latency-oriented and you do not want fixed linear-attention capacity to scale with server-style concurrency limits.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>enable_prefix_caching=false</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+<li class="">leave <code>max_num_batched_tokens</code> unlimited</li>
+<li class="">set <code>num_kv_blocks</code> explicitly or use <code>cache_size</code>, depending on whether you want deterministic capacity or a shared budget</li>
+</ul>
+<p>Why this works:</p>
+<p>With prefix caching disabled and unlimited <code>max_num_batched_tokens</code>, the runtime treats the configuration as a client-style scenario and starts with one fixed linear-attention block instead of reserving <code>max_num_seqs</code> blocks.</p>
+<p>Pros:</p>
+<ul>
+<li class="">avoids over-reserving fixed linear-attention state for single-stream inference</li>
+<li class="">keeps the initial memory footprint lower on large hybrid models</li>
+<li class="">still allows KV capacity to be controlled independently by <code>num_kv_blocks</code> or <code>cache_size</code></li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class="">not appropriate if multiple concurrent sequences are expected immediately</li>
+<li class="">fixed linear-attention capacity may need to grow later if concurrency increases</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scenario-6-exploratory-tuning-or-highly-variable-traffic">Scenario 6: Exploratory tuning or highly variable traffic<a href="#scenario-6-exploratory-tuning-or-highly-variable-traffic" class="hash-link" aria-label="Direct link to Scenario 6: Exploratory tuning or highly variable traffic" title="Direct link to Scenario 6: Exploratory tuning or highly variable traffic" translate="no">​</a></h3>
+<p>Use this when workload shape is not stable enough to pre-size confidently.</p>
+<p>Recommended settings:</p>
+<ul>
+<li class="">set <code>num_kv_blocks=0</code></li>
+<li class="">set <code>cache_size=0</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+<li class="">enable prefix caching only if the workload benefits from it</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li class="">no up-front capacity planning required</li>
+<li class="">adapts to traffic that is hard to predict</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li class="">less deterministic memory growth</li>
+<li class="">harder to compare across benchmark runs</li>
+<li class="">not the best fit when hard admission or latency targets must be guaranteed</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="recommended-starting-points">Recommended Starting Points<a href="#recommended-starting-points" class="hash-link" aria-label="Direct link to Recommended Starting Points" title="Direct link to Recommended Starting Points" translate="no">​</a></h2>
+<p>If no manual tuning has been done yet, these are reasonable defaults to start with.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="general-deployment-default">General deployment default<a href="#general-deployment-default" class="hash-link" aria-label="Direct link to General deployment default" title="Direct link to General deployment default" translate="no">​</a></h3>
+<ul>
+<li class="">use <code>cache_size</code></li>
+<li class="">keep <code>num_kv_blocks=0</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+</ul>
+<p>This is the safest default for hybrid models when the main goal is to respect a memory budget.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="throughput-tuned-deployment-default">Throughput-tuned deployment default<a href="#throughput-tuned-deployment-default" class="hash-link" aria-label="Direct link to Throughput-tuned deployment default" title="Direct link to Throughput-tuned deployment default" translate="no">​</a></h3>
+<ul>
+<li class="">use explicit <code>num_kv_blocks</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+<li class="">set bounded <code>max_num_batched_tokens</code> and <code>max_num_seqs</code> for non-prefix mode</li>
+<li class="">leave <code>cache_interval_multiplier</code> unset to use the default in prefix mode, or set it intentionally when tuning checkpoint granularity</li>
+</ul>
+<p>This is the better default when concurrency and token capacity have already been characterized.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="interactive-client-default">Interactive client default<a href="#interactive-client-default" class="hash-link" aria-label="Direct link to Interactive client default" title="Direct link to Interactive client default" translate="no">​</a></h3>
+<ul>
+<li class="">set <code>enable_prefix_caching=false</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+<li class="">leave <code>max_num_batched_tokens</code> unlimited</li>
+</ul>
+<p>This is the better default when non-prefix hybrid inference is effectively single-stream and initial linear-attention state should stay minimal.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="prefix-heavy-deployment-default">Prefix-heavy deployment default<a href="#prefix-heavy-deployment-default" class="hash-link" aria-label="Direct link to Prefix-heavy deployment default" title="Direct link to Prefix-heavy deployment default" translate="no">​</a></h3>
+<ul>
+<li class="">set <code>enable_prefix_caching=true</code></li>
+<li class="">keep <code>num_linear_attention_blocks=0</code></li>
+<li class="">start with the default <code>cache_interval_multiplier</code></li>
+<li class="">tune <code>cache_interval_multiplier</code> only if memory pressure or reuse granularity requires it</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="when-to-set-num_linear_attention_blocks-manually">When to Set num_linear_attention_blocks Manually<a href="#when-to-set-num_linear_attention_blocks-manually" class="hash-link" aria-label="Direct link to When to Set num_linear_attention_blocks Manually" title="Direct link to When to Set num_linear_attention_blocks Manually" translate="no">​</a></h2>
+<p>Manual <code>num_linear_attention_blocks</code> is useful only when one of the following is true:</p>
+<ul>
+<li class="">the deployment has a known fixed sequence budget and the value must be pinned exactly</li>
+<li class="">benchmark repeatability requires removing one more derived quantity</li>
+<li class="">a custom allocation split between KV and linear-attention cache is intentionally required</li>
+</ul>
+<p>In most cases, leaving <code>num_linear_attention_blocks=0</code> is preferred because it lets the runtime derive a value consistent with the selected mode.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related-topics">Related Topics<a href="#related-topics" class="hash-link" aria-label="Direct link to Related Topics" title="Direct link to Related Topics" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/openvino.genai/docs/concepts/optimization-techniques/continuous-batching">Continuous Batching</a></li>
+<li class=""><a class="" href="/openvino.genai/docs/concepts/optimization-techniques/prefix-caching">Prefix Caching</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<p>For hybrid-attention models, the best configuration depends on whether the deployment is optimized for:</p>
+<ul>
+<li class="">deterministic token capacity</li>
+<li class="">a shared memory budget</li>
+<li class="">fixed concurrent sequence count</li>
+<li class="">prefix reuse efficiency</li>
+<li class="">dynamic flexibility</li>
+</ul>
+<p>The simplest rule is:</p>
+<ul>
+<li class="">use <code>num_kv_blocks</code> when explicit capacity matters most</li>
+<li class="">use <code>cache_size</code> when a shared memory budget matters most</li>
+<li class="">keep <code>num_linear_attention_blocks=0</code> unless there is a strong reason to override the derived value</li>
+<li class="">treat <code>cache_interval_multiplier</code> as a memory-versus-checkpoint-granularity knob when prefix caching is enabled</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/jacob-vincent-mink/openvino.genai/tree/master/site/docs/concepts/optimization-techniques/hybrid-attention-models-cache.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/openvino.genai/docs/concepts/optimization-techniques/diffusion-caching"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Diffusion Caching (TaylorSeer Lite)</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/openvino.genai/docs/concepts/optimization-techniques/visual-token-pruning"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Visual Token Pruning (CDPruner)</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#cache-types-in-hybrid-models" class="table-of-contents__link toc-highlight">Cache Types in Hybrid Models</a><ul><li><a href="#kv-cache" class="table-of-contents__link toc-highlight">KV cache</a></li><li><a href="#linear-attention-cache-without-prefix-caching" class="table-of-contents__link toc-highlight">Linear-attention cache without prefix caching</a></li><li><a href="#linear-attention-cache-with-prefix-caching" class="table-of-contents__link toc-highlight">Linear-attention cache with prefix caching</a></li></ul></li><li><a href="#how-schedulerconfig-is-interpreted" class="table-of-contents__link toc-highlight">How SchedulerConfig Is Interpreted</a><ul><li><a href="#constructor-defaults-matter" class="table-of-contents__link toc-highlight">Constructor defaults matter</a></li><li><a href="#explicit-kv-capacity" class="table-of-contents__link toc-highlight">Explicit KV capacity</a></li><li><a href="#shared-memory-budget" class="table-of-contents__link toc-highlight">Shared memory budget</a></li><li><a href="#fully-dynamic-mode" class="table-of-contents__link toc-highlight">Fully dynamic mode</a></li><li><a href="#expert-override-for-linear-attention-blocks" class="table-of-contents__link toc-highlight">Expert override for linear-attention blocks</a></li></ul></li><li><a href="#which-configuration-fits-which-scenario" class="table-of-contents__link toc-highlight">Which Configuration Fits Which Scenario</a><ul><li><a href="#scenario-1-stable-production-throughput-on-a-known-workload" class="table-of-contents__link toc-highlight">Scenario 1: Stable production throughput on a known workload</a></li><li><a href="#scenario-2-constrained-device-memory-with-mixed-cache-types" class="table-of-contents__link toc-highlight">Scenario 2: Constrained device memory with mixed cache types</a></li><li><a href="#scenario-3-high-concurrency-no-prefix-reuse" class="table-of-contents__link toc-highlight">Scenario 3: High concurrency, no prefix reuse</a></li><li><a href="#scenario-4-prefix-heavy-chat-or-repeated-prompt-workloads" class="table-of-contents__link toc-highlight">Scenario 4: Prefix-heavy chat or repeated-prompt workloads</a></li><li><a href="#scenario-5-single-stream-or-interactive-client-inference-without-prefix-reuse" class="table-of-contents__link toc-highlight">Scenario 5: Single-stream or interactive client inference without prefix reuse</a></li><li><a href="#scenario-6-exploratory-tuning-or-highly-variable-traffic" class="table-of-contents__link toc-highlight">Scenario 6: Exploratory tuning or highly variable traffic</a></li></ul></li><li><a href="#recommended-starting-points" class="table-of-contents__link toc-highlight">Recommended Starting Points</a><ul><li><a href="#general-deployment-default" class="table-of-contents__link toc-highlight">General deployment default</a></li><li><a href="#throughput-tuned-deployment-default" class="table-of-contents__link toc-highlight">Throughput-tuned deployment default</a></li><li><a href="#interactive-client-default" class="table-of-contents__link toc-highlight">Interactive client default</a></li><li><a href="#prefix-heavy-deployment-default" class="table-of-contents__link toc-highlight">Prefix-heavy deployment default</a></li></ul></li><li><a href="#when-to-set-num_linear_attention_blocks-manually" class="table-of-contents__link toc-highlight">When to Set num_linear_attention_blocks Manually</a></li><li><a href="#related-topics" class="table-of-contents__link toc-highlight">Related Topics</a></li><li><a href="#summary" class="table-of-contents__link toc-highlight">Summary</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">OpenVINO</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.openvino.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">OpenVINO™ Documentation<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.intel.com/content/www/us/en/internet-of-things/ai-in-production/success-stories.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Case Studies<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Legal</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.openvino.ai/2026/about-openvino/additional-resources/terms-of-use.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Terms of Use<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.intel.com/content/www/us/en/artificial-intelligence/responsible-ai.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Responsible AI<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Privacy</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://www.intel.com/content/www/us/en/privacy/intel-cookie-notice.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Cookies<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.intel.com/content/www/us/en/privacy/intel-privacy-notice.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Privacy<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Intel Corporation
+                Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.
+                Other names and brands may be claimed as the property of others.</div></div></div></footer></div>
+</body>
+</html>

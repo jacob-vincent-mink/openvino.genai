@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkopenvino_genai_docs=globalThis.webpackChunkopenvino_genai_docs||[]).push([[9647],{7121(e,s,n){n.r(s),n.d(s,{default:()=>l});n(6540);var a=n(4164),o=n(7559),r=n(5500),c=n(2831),i=n(4060),u=n(4848);function l(e){return(0,u.jsx)(r.e3,{className:(0,a.A)(o.G.wrapper.docsPages),children:(0,u.jsx)(i.A,{children:(0,c.v)(e.route.routes)})})}}}]);

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 881.13965 74.71701"
+   version="1.1"
+   id="svg29"
+   sodipodi:docname="kv-cache-areas-diagram.svg"
+   width="881.13965"
+   height="74.71701"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs29" />
+  <sodipodi:namedview
+     id="namedview29"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.97138794"
+     inkscape:cx="451.93067"
+     inkscape:cy="78.753294"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg29" />
+  <!-- Background -->
+  <!-- Block grid -->
+  <!-- Start Area -->
+  <rect
+     x="0.72793579"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#8ecae6"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect2" />
+  <rect
+     x="40.727936"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#8ecae6"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect3" />
+  <rect
+     x="80.727936"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#8ecae6"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect4" />
+  <rect
+     x="120.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#8ecae6"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect5" />
+  <!-- Evictable Area -->
+  <rect
+     x="160.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect6" />
+  <rect
+     x="200.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect7" />
+  <rect
+     x="240.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect8" />
+  <rect
+     x="280.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect9" />
+  <rect
+     x="320.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect10" />
+  <rect
+     x="360.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect11" />
+  <rect
+     x="400.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect12" />
+  <rect
+     x="440.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect13" />
+  <rect
+     x="480.72794"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect14" />
+  <rect
+     x="520.72791"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#ffb703"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect15" />
+  <!-- Recent Area -->
+  <rect
+     x="560.72791"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect16" />
+  <rect
+     x="600.72791"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect17" />
+  <rect
+     x="640.72791"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect18" />
+  <rect
+     x="680.72791"
+     y="0.60916519"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect19" />
+  <!-- Title -->
+  <!-- Labels -->
+  <text
+     x="76.742485"
+     y="74.403519"
+     font-family="Arial"
+     font-size="16px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text20">Start Area</text>
+  <text
+     x="356.55142"
+     y="72.947662"
+     font-family="Arial"
+     font-size="16px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text21">Evictable Area</text>
+  <text
+     x="640.72791"
+     y="70.763855"
+     font-family="Arial"
+     font-size="16px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text22">Recent Area</text>
+  <!-- Arrows -->
+  <!-- Start Area -->
+  <line
+     x1="0"
+     y1="53.448109"
+     x2="160"
+     y2="53.448109"
+     stroke="#000000"
+     stroke-width="2"
+     id="line22" />
+  <polygon
+     points="50,180 60,175 60,185 "
+     fill="#000000"
+     id="polygon22"
+     transform="translate(-49.999999,-126.55189)" />
+  <polygon
+     points="210,180 200,175 200,185 "
+     fill="#000000"
+     id="polygon23"
+     transform="translate(-49.999999,-126.55189)" />
+  <!-- Evictable Area -->
+  <line
+     x1="160"
+     y1="53.448109"
+     x2="560"
+     y2="53.448109"
+     stroke="#000000"
+     stroke-width="2"
+     id="line23" />
+  <polygon
+     points="210,180 220,175 220,185 "
+     fill="#000000"
+     id="polygon24"
+     transform="translate(-49.999999,-126.55189)" />
+  <polygon
+     points="610,180 600,175 600,185 "
+     fill="#000000"
+     id="polygon25"
+     transform="translate(-49.999999,-126.55189)" />
+  <!-- Recent Area -->
+  <line
+     x1="560"
+     y1="53.448109"
+     x2="720"
+     y2="53.448109"
+     stroke="#000000"
+     stroke-width="2"
+     id="line25" />
+  <polygon
+     points="610,180 620,175 620,185 "
+     fill="#000000"
+     id="polygon26"
+     transform="translate(-49.999999,-126.55189)" />
+  <polygon
+     points="770,180 760,175 760,185 "
+     fill="#000000"
+     id="polygon27"
+     transform="translate(-49.999999,-126.55189)" />
+  <!-- Legend -->
+  <rect
+     x="720.63965"
+     y="0.5"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect16-2"
+     style="fill:#ffffff" />
+  <rect
+     x="760.63965"
+     y="0.5"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect17-3"
+     style="fill:#ffffff" />
+  <rect
+     x="800.63965"
+     y="0.5"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect18-9"
+     style="fill:#ffffff" />
+  <rect
+     x="840.63965"
+     y="0.5"
+     width="40"
+     height="40"
+     fill="#fb8500"
+     stroke="#000000"
+     stroke-width="1"
+     id="rect19-0"
+     style="fill:#ffffff" />
+  <text
+     x="807.5354"
+     y="71.349823"
+     font-family="Arial"
+     font-size="16px"
+     text-anchor="middle"
+     font-weight="bold"
+     id="text22-5"
+     style="fill:#000000"><tspan
+       sodipodi:role="line"
+       id="tspan30"
+       x="807.5354"
+       y="71.349823">(unfilled blocks)</tspan></text>
+</svg>
